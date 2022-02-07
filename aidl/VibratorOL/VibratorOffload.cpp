@@ -96,7 +96,7 @@ void PatternOffload::SSREventListener(void)
     }
 
     while ((n = uevent_kernel_multicast_recv(device_fd, msg, UEVENT_MSG_LEN)) > 0) {
-         if (n <= 0 || n >= UEVENT_MSG_LEN) {
+         if (n <= 0 || n > UEVENT_MSG_LEN) {
             ALOGE("Message length %d is not correct\n", n);
             continue;
          }
