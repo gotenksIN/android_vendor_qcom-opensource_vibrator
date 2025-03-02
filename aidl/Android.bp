@@ -3,9 +3,11 @@ Common_CFlags += ["-Werror"]
 
 cc_library_shared {
     name: "vendor.qti.hardware.vibrator.impl",
-    defaults: ["qti_vibrator_hal_defaults"],
     vendor: true,
-    cflags: Common_CFlags,
+    cflags: Common_CFlags + select(soong_config_variable("qti_vibrator", "use_effect_stream"), {
+        "true": ["-DUSE_EFFECT_STREAM"],
+        default: [],
+    }),
     srcs: [
         "Vibrator.cpp",
     ],
@@ -18,7 +20,10 @@ cc_library_shared {
         "vendor.qti.hardware.vibratorOL.impl",
         "vendor.qti.hardware.vibratorCL.impl",
         "vendor.qti.hardware.vibratorSel.impl",
-    ],
+    ] + select(soong_config_variable("qti_vibrator", "effect_lib"), {
+         any @ value: [value],
+         default: ["libqtivibratoreffect"],
+    }),
     header_libs: [
         "libqtivibratoreffect_headers",
     ],
