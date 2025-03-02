@@ -19,6 +19,9 @@ cc_library_shared {
         "vendor.qti.hardware.vibratorCL.impl",
         "vendor.qti.hardware.vibratorSel.impl",
     ],
+    header_libs: [
+        "libqtivibratoreffect_headers",
+    ],
     export_include_dirs: ["include"],
     include_dirs: [
         "external/expat/lib",
